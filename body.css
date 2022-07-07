@@ -1,0 +1,28 @@
+body {
+  text-align: center;
+  background-color: rgba(147, 211, 171, 0.473);
+}
+
+#title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  text-align: center;
+}
+
+#title h2{
+  text-decoration: line-through;
+  padding-left: 10px;
+  font-size: 15px;
+}
+
+#title h3{
+  text-decoration: line-through;
+  padding-left: 10px;
+  font-size: 10px;
+}
+
+canvas {
+  box-shadow: 0 0 10px 5px black;
+}
