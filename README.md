@@ -3,6 +3,6 @@ Basic movement and rudimentary borders are working well enough. If I have time I
 
 # Controls
 
-W / UpArrow / Space => Up/Jump
-A / LeftArrow => Move left
-D / RightArrow => Move right
+W / UpArrow / Space => Up/Jump  
+A / LeftArrow => Move left  
+D / RightArrow => Move right  
