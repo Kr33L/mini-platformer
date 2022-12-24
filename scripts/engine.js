@@ -1,32 +1,34 @@
-//screen drawing variables
-var canvas;
-var context;
+import { Wall } from "./object.js";
+import { Player, playerInput } from "./player.js";
+
+export const canvas = document.getElementById("canvas");
+export const context = canvas.getContext("2d");
+export const width = (canvas.width = window.innerWidth);
+export const height = (canvas.height = window.innerHeight);
 
 //game variables
-var frames;
-var player;
-var walls = [];
+let frames;
+let player;
+let walls = [];
 
-window.onload = function () {
-  canvas = document.getElementById("canvas");
-  context = canvas.getContext("2d");
-  player = new Player(10, 10);
-  walls.push(new Wall(0, 380, 800, 20, 1));
-  frames = setInterval(step, 1000 / 120);
-  playerInput();
+function step() {
+  player.step();
+  drawEngine();
 }
 
-function step() { 
-  player.step(); 
-  drawEngine(); 
-}
-
-function drawEngine() { //clear canvas(no ghosting)
+function drawEngine() {
   context.fillStyle = "aliceblue";
-  context.fillRect(0, 0, 800, 400);
+  context.fillRect(0, 0, width, height);
   player.draw();
 
   for (let i = 0; i < walls.length; i++) {
     walls[i].draw();
   }
 }
+
+window.addEventListener("load", () => {
+  player = new Player(10, 10);
+  walls.push(new Wall(0, 380, width, 20, 1));
+  frames = setInterval(step, 1000 / 120);
+  playerInput();
+});

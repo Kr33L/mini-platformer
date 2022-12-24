@@ -1,10 +1,11 @@
-//input variables
-var upKey;
-var rightKey;
-var downKey;
-var leftKey;
+import { context } from "./engine.js";
 
-function Player(xPos, yPos) {
+let leftKey;
+let rightKey;
+let upKey;
+let downKey;
+
+export function Player(xPos, yPos) {
   this.xPos = xPos;
   this.yPos = yPos;
   this.width = 10;
@@ -12,7 +13,6 @@ function Player(xPos, yPos) {
   this.speedX = 0;
   this.speedY = 0;
   this.maxSpeedX = 1;
-  this.maxSpeedY = 2.5; //unused
   this.friction = 0.25;
   this.gravity = 0.1;
   this.active = true;
@@ -23,15 +23,12 @@ function Player(xPos, yPos) {
       this.yPos += this.speedY;
       this.speedY += this.gravity;
 
-      if (upKey) { 
-        this.speedY--; 
-      }
-      if ((!leftKey && !rightKey) || (leftKey && rightKey)) { //always active friction
-      this.speedX *= this.friction; 
-      } else if (rightKey) {
-        this.speedX++;
-      } else if (leftKey) {
-        this.speedX--;
+      if (upKey) this.speedY--;
+      if (rightKey) this.speedX++;
+      if (leftKey) this.speedX--;
+
+      if ((!leftKey && !rightKey) || (leftKey && rightKey)) {
+        this.speedX *= this.friction;
       }
 
       if (this.xPos < 0) {
@@ -50,25 +47,26 @@ function Player(xPos, yPos) {
         this.speedY = 0;
       }
     }
-  }
+  };
 
   this.draw = function () {
     context.fillStyle = "purple";
     context.fillRect(this.xPos, this.yPos, this.width, this.height);
-  }
+  };
 }
 
-function playerInput() {
+export function playerInput() {
   document.addEventListener("keydown", function (event) {
-    if (event.key === "w" || event.key === "ArrowUp" || event.key === "space") {upKey = true;}
-    if (event.key === "a" || event.key === "ArrowLeft")                        {leftKey = true;}
-    if (event.key === "s" || event.key === "ArrowDown")                        {downKey = true;}
-    if (event.key === "d" || event.key === "ArrowRight")                       {rightKey = true;}
+    if (event.key === "w" || event.key === "ArrowUp") upKey = true;
+    if (event.key === "a" || event.key === "ArrowLeft") leftKey = true;
+    if (event.key === "s" || event.key === "ArrowDown") downKey = true;
+    if (event.key === "d" || event.key === "ArrowRight") rightKey = true;
   });
+
   document.addEventListener("keyup", function (event) {
-    if (event.key === "w" || event.key === "ArrowUp" || event.key === "space") {upKey = false;}
-    if (event.key === "a" || event.key === "ArrowLeft")                        {leftKey = false;}
-    if (event.key === "s" || event.key === "ArrowDown")                        {downKey = false;}
-    if (event.key === "d" || event.key === "ArrowRight")                       {rightKey = false;}
+    if (event.key === "w" || event.key === "ArrowUp") upKey = false;
+    if (event.key === "a" || event.key === "ArrowLeft") leftKey = false;
+    if (event.key === "s" || event.key === "ArrowDown") downKey = false;
+    if (event.key === "d" || event.key === "ArrowRight") rightKey = false;
   });
 }
